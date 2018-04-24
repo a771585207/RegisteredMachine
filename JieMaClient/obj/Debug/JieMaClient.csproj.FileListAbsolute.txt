@@ -1,0 +1,10 @@
+E:\Crash\JieMaClient\JieMaClient\bin\Debug\JieMaClient.exe.config
+E:\Crash\JieMaClient\JieMaClient\bin\Debug\JieMaClient.exe
+E:\Crash\JieMaClient\JieMaClient\bin\Debug\JieMaClient.pdb
+E:\Crash\JieMaClient\JieMaClient\obj\Debug\JieMaClient.csprojResolveAssemblyReference.cache
+E:\Crash\JieMaClient\JieMaClient\obj\Debug\JieMaClient.Form1.resources
+E:\Crash\JieMaClient\JieMaClient\obj\Debug\JieMaClient.Properties.Resources.resources
+E:\Crash\JieMaClient\JieMaClient\obj\Debug\JieMaClient.csproj.GenerateResource.Cache
+E:\Crash\JieMaClient\JieMaClient\obj\Debug\JieMaClient.exe
+E:\Crash\JieMaClient\JieMaClient\obj\Debug\JieMaClient.pdb
+E:\Crash\JieMaClient\JieMaClient\bin\Debug\Newtonsoft.Json.dll
