@@ -8,3 +8,6 @@ E:\Crash\JieMaClient\JieMaClient\obj\Debug\JieMaClient.csproj.GenerateResource.C
 E:\Crash\JieMaClient\JieMaClient\obj\Debug\JieMaClient.exe
 E:\Crash\JieMaClient\JieMaClient\obj\Debug\JieMaClient.pdb
 E:\Crash\JieMaClient\JieMaClient\bin\Debug\Newtonsoft.Json.dll
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\bin\Debug\JieMaClient.exe.config
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Debug\JieMaClient.exe
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Debug\JieMaClient.pdb
