@@ -46,11 +46,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.sumaUser = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.sumaPassword = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +66,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(365, 1);
+            this.button1.Location = new System.Drawing.Point(369, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(93, 41);
             this.button1.TabIndex = 1;
@@ -203,18 +203,9 @@
             this.label5.TabIndex = 16;
             this.label5.Text = "邀请链接";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 15);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 12);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "速码账号";
-            // 
             // sumaUser
             // 
-            this.sumaUser.Location = new System.Drawing.Point(71, 12);
+            this.sumaUser.Location = new System.Drawing.Point(122, 13);
             this.sumaUser.Name = "sumaUser";
             this.sumaUser.Size = new System.Drawing.Size(100, 21);
             this.sumaUser.TabIndex = 18;
@@ -224,15 +215,16 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(187, 15);
+            this.label7.Location = new System.Drawing.Point(228, 15);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(53, 12);
+            this.label7.Size = new System.Drawing.Size(29, 12);
             this.label7.TabIndex = 19;
-            this.label7.Text = "速码密码";
+            this.label7.Text = "密码";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // sumaPassword
             // 
-            this.sumaPassword.Location = new System.Drawing.Point(246, 12);
+            this.sumaPassword.Location = new System.Drawing.Point(263, 12);
             this.sumaPassword.Name = "sumaPassword";
             this.sumaPassword.Size = new System.Drawing.Size(100, 21);
             this.sumaPassword.TabIndex = 20;
@@ -248,16 +240,29 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "速码",
+            "易码"});
+            this.comboBox4.Location = new System.Drawing.Point(12, 12);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(104, 20);
+            this.comboBox4.TabIndex = 22;
+            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1682, 964);
+            this.Controls.Add(this.comboBox4);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.sumaPassword);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.sumaUser);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.comboBox3);
@@ -301,11 +306,11 @@
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.TextBox textBox4;
         public System.Windows.Forms.Label label5;
-        public System.Windows.Forms.Label label6;
         public System.Windows.Forms.TextBox sumaUser;
         public System.Windows.Forms.Label label7;
         public System.Windows.Forms.TextBox sumaPassword;
         public System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ComboBox comboBox4;
     }
 }
 

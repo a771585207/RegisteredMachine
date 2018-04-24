@@ -126,9 +126,28 @@ namespace JieMaClient
         //获取相应项目的手机号
         public string getPhoneNumber()
         {
+            string Url = "";
+            string postDataStr = "";
+            string[] pids = _form.projectInfo.pid.Split('|');
+            //平台选择
+            switch (_form.phonePlatform)
+            {
+                case "速码":
+                    {
+                        Url = "http://api.eobzz.com/httpApi.do";
+                        postDataStr = "action=getMobilenum&pid=" + pids[0] + "&uid=" + _form.userName + "&token=" + _form.token + "&mobile=&size=1";//&province=广东&phoneType=CMCC";
+                    }
+                    break;
+                case "易码":
+                    {
+                        Url = "http://api.fxhyd.cn/UserInterface.aspx";
+                        postDataStr = "action=getmobile&token=" + _form.token + "&itemid=" + pids[1];
+                    }
+                    break;
+                default:
+                    break;
+            }
             //获取手机号
-            string Url = "http://api.eobzz.com/httpApi.do";
-            string postDataStr = "action=getMobilenum&pid=" + _form.projectInfo.pid + "&uid=" + _form.userName + "&token=" + _form.token + "&mobile=&size=1";//&province=广东&phoneType=CMCC";
             string retStrings = HttpSingleton.Instance.HttpGet(Url, postDataStr);
             string phoneNumber = "";
             if (retStrings.Contains(_form.token))
@@ -136,9 +155,14 @@ namespace JieMaClient
                 phoneNumber = retStrings.Split('|')[0];
                 return phoneNumber;
             }
+            else if(retStrings.Contains("success"))
+            {
+                phoneNumber = retStrings.Split('|')[1];
+                return phoneNumber;
+            }
             else
             {
-                MessageBox.Show("速码平台没钱了", "提示", MessageBoxButtons.OK);
+                MessageBox.Show(retStrings, "提示", MessageBoxButtons.OK);
             }
             return "";
         }
@@ -203,9 +227,57 @@ namespace JieMaClient
             }
             else
             {
-                MessageBox.Show("超级鹰验证码识别平台没钱", "提示", MessageBoxButtons.OK);
+                MessageBox.Show(str, "提示", MessageBoxButtons.OK);
             }
             return checkCode;
+        }
+        //在文本控件内输入字符
+        public string getCode(string userName, string token, string phone)
+        {
+            string Url = "";
+            string postDataStr = "";
+            string[] pids = _form.projectInfo.pid.Split('|');
+            int count = 0;
+            while (true)
+            {
+                //平台选择
+                switch (_form.phonePlatform)
+                {
+                    case "速码":
+                        {
+                            Url = "http://api.eobzz.com/httpApi.do";
+                            postDataStr = "action=getVcodeAndReleaseMobile&uid=" + userName + "&token=" + token + "&mobile=" + phone;
+                        }
+                        break;
+                    case "易码":
+                        {
+                            Url = "http://api.fxhyd.cn/UserInterface.aspx";
+                            postDataStr = "action=getsms&token=" + token + "&itemid=" + pids[1] + "&mobile=" + phone + "&release=1";
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                string retStrings = HttpSingleton.Instance.HttpGet(Url, postDataStr);
+                if (retStrings.Contains(phone))
+                {
+                    string sms = retStrings.Split('|')[1];
+                    return sms;
+                }
+                else if (retStrings.Contains("success"))
+                {
+                    string sms = retStrings.Split('|')[1];
+                    return sms;
+                }
+                else
+                {
+                    count++;
+                    string sms = "第" + count.ToString() + "次获取验证码";
+                    _form.ControlDelegate("TextBox", _form.textBox1, sms);
+                    Thread.Sleep(3000);
+                }
+            }
+            return "";
         }
         //在文本控件内输入字符
         public void input_str(float x, float y, string str)

@@ -11,3 +11,10 @@ E:\Crash\JieMaClient\JieMaClient\bin\Debug\Newtonsoft.Json.dll
 E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\bin\Debug\JieMaClient.exe.config
 E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Debug\JieMaClient.exe
 E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Debug\JieMaClient.pdb
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\bin\Debug\JieMaClient.exe
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\bin\Debug\JieMaClient.pdb
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\bin\Debug\Newtonsoft.Json.dll
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Debug\JieMaClient.csprojResolveAssemblyReference.cache
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Debug\JieMaClient.Form1.resources
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Debug\JieMaClient.Properties.Resources.resources
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Debug\JieMaClient.csproj.GenerateResource.Cache

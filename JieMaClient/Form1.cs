@@ -20,23 +20,21 @@ namespace JieMaClient
         BaseProject baseProject = new BaseProject();
         MainDelegate mainDelegate = new MainDelegate();
 
+        public string phonePlatform;
         public string userName;
         public string token;
         public int webLoadCount;
         public ProjectInfo projectInfo;
-        //public string pid;
-        //public string projectName;
-        //public int wenLoadCount;
-        //public int wenLoadTotalCount;
 
         //test url
         public string testUrl = "";
 
         //预建好相关需要
         public static ProjectInfo[] projectInfos = {
-            new ProjectInfo{name =  "BXP", pid = "48997", webLoadTotalCount = 1, url = "http://www.bitcquan.com/Register?parentId=110367"},
-            new ProjectInfo{name =  "NPC", pid = "44560", webLoadTotalCount = 4, url = "http://1aau.com/i/411129248"},
-            new ProjectInfo{name =  "QQ", pid = "8141", webLoadTotalCount = 1, url = "https://ssl.zc.qq.com/v3/index-chs.html"},
+            new ProjectInfo{name =  "BXP", pid = "48997|16531", webLoadTotalCount = 1, url = "http://www.bitcquan.com/Register?parentId=110367"},
+            new ProjectInfo{name =  "NPC", pid = "44560|14957", webLoadTotalCount = 4, url = "http://1aau.com/i/411129248"},
+            new ProjectInfo{name =  "ShareWallet", pid = "45673|15335", webLoadTotalCount = 1, url = "https://ssl.zc.qq.com/v3/index-chs.html"},
+            new ProjectInfo{name =  "QQ", pid = "8141|15335", webLoadTotalCount = 1, url = "https://ssl.zc.qq.com/v3/index-chs.html"},
         };
 
         public Form1()
@@ -59,27 +57,46 @@ namespace JieMaClient
                 comboBox1.Items.Add(projectInfos[i].name);
             }
             comboBox1.SelectedIndex = 0;
+            comboBox4.SelectedIndex = 0;
             baseProject.init(this);
         }
 
         //登录
         private void button1_Click(object sender, EventArgs e)
         {
-            string Url = "http://api.eobzz.com/httpApi.do";
-            string postDataStr = "action=loginIn&uid=" + sumaUser.Text + "&pwd=" + sumaPassword.Text;
+            string Url = "";
+            string postDataStr = "";
+            switch (phonePlatform)
+            {
+                case "速码":
+                    {
+                        Url = "http://api.eobzz.com/httpApi.do";
+                        postDataStr = "action=loginIn&uid=" + sumaUser.Text + "&pwd=" + sumaPassword.Text;
+                    }
+                    break;
+                case "易码":
+                    {
+                        Url = "http://api.fxhyd.cn/UserInterface.aspx";
+                        postDataStr = "action=login&username=" + sumaUser.Text + "&password=" + sumaPassword.Text;
+                    }
+                    break;
+                default:
+                    break;
+            }
             string retStrings = HttpSingleton.Instance.HttpGet(Url, postDataStr);
             string[] retString = retStrings.Split('|');
-            if (retString[0] == sumaUser.Text)
+            if (retString[0] == sumaUser.Text || retString[0] == "success")
             {
                 //成功，开放下一步操作
                 button1.Text = "登录成功";
                 button1.Enabled = false;
+                comboBox4.Enabled = false;
                 comboBox2.Enabled = true;
                 comboBox3.Enabled = true;
                 button4.Enabled = true;
                 sumaUser.Enabled = false;
                 sumaUser.Enabled = false;
-                userName = retString[0];
+                userName = sumaUser.Text;
                 token = retString[1];
             }
             else
@@ -133,14 +150,15 @@ namespace JieMaClient
         //测试按钮
         private void button3_Click(object sender, EventArgs e)
         {
-            //haha
-        }
-        //定时器
-        private void timer1_Tick(object sender, EventArgs e)
-        {
             
         }
-
+        //手机接码平台
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //0：速码，1：易码
+            phonePlatform = comboBox4.Text;
+        }
+        //项目选择
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             projectInfo = projectInfos[comboBox1.SelectedIndex];
@@ -185,6 +203,16 @@ namespace JieMaClient
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+        //定时器
+        private void timer1_Tick(object sender, EventArgs e)
         {
 
         }

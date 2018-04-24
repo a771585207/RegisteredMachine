@@ -103,35 +103,24 @@ namespace JieMaClient
             float y = float.Parse(infoList[3]);
             string phone = phoneNumbers[phoneNumbers.Count - 1];
             string password = passwords[passwords.Count - 1];
-            string retStrings = "";
-            int count = 0;
-            while (true)
+
+            //【币讯】您本次操作验证码:854348
+            string sms = getCode(userName, token, phone);
+            if (sms != "")
             {
-                string Url = "http://api.eobzz.com/httpApi.do";
-                string postDataStr = "action=getVcodeAndReleaseMobile&uid=" + userName + "&token=" + token + "&mobile=" + phone;
-                retStrings = HttpSingleton.Instance.HttpGet(Url, postDataStr);
-                if (retStrings.Contains(phone))
-                {
-                    //解析验证码短信内容----18474088876|【币讯】您本次操作验证码:854348
-                    string sms = retStrings.Split('|')[1];
-                    string[] split = sms.Split(':');
-                    string vcode = split[1];
-                    //填写验证码
-                    input_str(x, y, vcode);
-                    //点击注册按钮
-                    left_click(838, 405);
-                    //保存账号密码
-                    saveUserPassword(phone, password);
-                    _form.ControlDelegate("TextBox", _form.textBox1, sms);
-                    break;
-                }
-                else
-                {
-                    count++;
-                    string sms = "第" + count.ToString() + "次获取验证码";
-                    _form.ControlDelegate("TextBox", _form.textBox1, sms);
-                    Thread.Sleep(3000);
-                }
+                string[] split = sms.Split(':');
+                string vcode = split[1];
+                //填写验证码
+                input_str(x, y, vcode);
+                //点击注册按钮
+                left_click(838, 405);
+                //保存账号密码
+                saveUserPassword(phone, password);
+                _form.ControlDelegate("TextBox", _form.textBox1, sms);
+            }
+            else
+            {
+                MessageBox.Show("验证码获取超时", "提示", MessageBoxButtons.OK);
             }
         }
     }
