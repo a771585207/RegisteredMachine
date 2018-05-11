@@ -33,7 +33,7 @@ namespace JieMaClient
         }
 
         //网络相关
-        private string HttpPost(string Url, string postDataStr)
+        public string HttpPost(string Url, string postDataStr)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
             request.Method = "POST";

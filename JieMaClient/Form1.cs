@@ -31,10 +31,11 @@ namespace JieMaClient
 
         //预建好相关需要
         public static ProjectInfo[] projectInfos = {
-            new ProjectInfo{name =  "BXP", pid = "48997|16531", webLoadTotalCount = 1, url = "http://www.bitcquan.com/Register?parentId=110367"},
-            new ProjectInfo{name =  "NPC", pid = "44560|14957", webLoadTotalCount = 4, url = "http://1aau.com/i/411129248"},
-            new ProjectInfo{name =  "ShareWallet", pid = "45673|15335", webLoadTotalCount = 1, url = "https://ssl.zc.qq.com/v3/index-chs.html"},
-            new ProjectInfo{name =  "QQ", pid = "8141|15335", webLoadTotalCount = 1, url = "https://ssl.zc.qq.com/v3/index-chs.html"},
+            new ProjectInfo{name =  "BXP", pid = "48997|16531", webLoadTotalCount = 1, isNeedProxyIp = true, cjyID = 0, url = "http://www.bitcquan.com/Register?parentId=110367"},
+            new ProjectInfo{name =  "NPC", pid = "44560|14957", webLoadTotalCount = 4, isNeedProxyIp = false, cjyID = 1005, url = "http://1aau.com/i/411129248"},
+            new ProjectInfo{name =  "BIK", pid = "51835|16139", webLoadTotalCount = 1, isNeedProxyIp = true, cjyID = 4004, url = "https://bikan.ink/wx/reg?id=99W2BI"},
+            new ProjectInfo{name =  "ShareWallet", pid = "45673|15335", webLoadTotalCount = 1, isNeedProxyIp = true, cjyID = 0, url = "https://ssl.zc.qq.com/v3/index-chs.html"},
+            new ProjectInfo{name =  "QQ", pid = "8141|15335", webLoadTotalCount = 1, isNeedProxyIp = true, cjyID = 0, url = "https://ssl.zc.qq.com/v3/index-chs.html"},
         };
 
         public Form1()
@@ -44,6 +45,8 @@ namespace JieMaClient
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //检测ie内核
+            Utility.registryKeyCheck();
             //初始化
             button1.Enabled = true;
             comboBox2.Enabled = false;
@@ -109,13 +112,18 @@ namespace JieMaClient
         {
             //禁止重新选择项目
             //comboBox1.Enabled = false;
+            //删除cookie
+            Utility.SuppressWininetBehavior();
 
             webLoadCount = 0;
             string url = testUrl.Equals("") ? projectInfo.url : testUrl;
             //改变代理IP
-            if(!ProxyIP.Instance.changeProxyIP())
+            if (projectInfo.isNeedProxyIp)
             {
-                return;
+                if (!ProxyIP.Instance.changeProxyIP())
+                {
+                    return;
+                }
             }
             //打开网页
             webBrowser1.Navigate(url);
@@ -131,14 +139,12 @@ namespace JieMaClient
                 ThreadPool.QueueUserWorkItem(new WaitCallback(baseProject.autoRegister), projectInfo.name);
             }
         }
-        private void Window_Error(object sender, HtmlElementErrorEventArgs e)
-        {
-            // Ignore the error and suppress the error dialog box. 
-            e.Handled = true;
-        }
         //开打网页按钮
         private void button2_Click(object sender, EventArgs e)
         {
+            Utility.SuppressWininetBehavior();
+            //Utility.SuppressWininetBehavior(16);
+            //Utility.SuppressWininetBehavior(32);
             webLoadCount = 0;
             string url = testUrl.Equals("") ? projectInfo.url : testUrl;
             //改变代理IP
@@ -150,6 +156,11 @@ namespace JieMaClient
         //测试按钮
         private void button3_Click(object sender, EventArgs e)
         {
+            //pictureBox1.Image = Utility.GetWebImage_test(webBrowser1, "imgCaptcha");
+            //HtmlElement htmlEle = webBrowser1.Document.GetElementById("getCode1");
+            //htmlEle.InvokeMember("click");
+            //baseProject.left_click(900, 500);
+            //baseProject.mouse_drag(-120 * 4);
             
         }
         //手机接码平台
@@ -162,6 +173,11 @@ namespace JieMaClient
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             projectInfo = projectInfos[comboBox1.SelectedIndex];
+        }
+        private void Window_Error(object sender, HtmlElementErrorEventArgs e)
+        {
+            // Ignore the error and suppress the error dialog box. 
+            e.Handled = true;
         }
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {

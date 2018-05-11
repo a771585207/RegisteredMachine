@@ -7,3 +7,12 @@ E:\Crash\JieMaClient\JieMaClient\obj\Release\JieMaClient.csproj.GenerateResource
 E:\Crash\JieMaClient\JieMaClient\obj\Release\JieMaClient.exe
 E:\Crash\JieMaClient\JieMaClient\obj\Release\JieMaClient.pdb
 E:\Crash\JieMaClient\JieMaClient\obj\Release\JieMaClient.csprojResolveAssemblyReference.cache
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\bin\Release\JieMaClient.exe.config
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Release\JieMaClient.exe
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Release\JieMaClient.pdb
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\bin\Release\JieMaClient.exe
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\bin\Release\JieMaClient.pdb
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Release\JieMaClient.csprojResolveAssemblyReference.cache
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Release\JieMaClient.Form1.resources
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Release\JieMaClient.Properties.Resources.resources
+E:\Crash\JieMaClient\RegisteredMachine\JieMaClient\obj\Release\JieMaClient.csproj.GenerateResource.Cache

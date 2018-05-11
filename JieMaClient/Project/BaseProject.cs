@@ -18,6 +18,8 @@ namespace JieMaClient
         public string name;
         public string pid;
         public int webLoadTotalCount;
+        public bool isNeedProxyIp;
+        public int cjyID;
         public string url;
     };
     class BaseProject
@@ -47,10 +49,11 @@ namespace JieMaClient
         const int MOUSEEVENTF_MIDDLEDOWN = 0x0020; //模拟鼠标中键按下
         const int MOUSEEVENTF_MIDDLEUP = 0x0040; //模拟鼠标中键抬起
         const int MOUSEEVENTF_ABSOLUTE = 0x8000; //标示是否采用绝对坐标
+        const int MOUSEEVENTF_WHEEL = 0x800;    //鼠标滚动
         [DllImport("User32")]
         public extern static void SetCursorPos(int x, int y);
         [System.Runtime.InteropServices.DllImport("user32")]
-        private static extern int mouse_event(int dwFlags, uint dx, uint dy, uint cButtons, int dwExtraInfo);
+        private static extern int mouse_event(int dwFlags, uint dx, uint dy, int cButtons, int dwExtraInfo);
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
         [DllImport("user32.dll", EntryPoint = "GetKeyboardState")]
@@ -119,6 +122,14 @@ namespace JieMaClient
                         bxp.autoRegister();
                     }
                     break;
+                case "BIK":
+                    {
+                        BIK_Project bxp = new BIK_Project();
+                        bxp.init(_form);
+                        bxp.path = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + projectName;
+                        bxp.autoRegister();
+                    }
+                    break;
                 default:
                     break;
             }
@@ -170,14 +181,18 @@ namespace JieMaClient
         public string getRandPassword()
         {
             //随机密码
-            string pool = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";//abcdefghijklmnopqrstuvwxyz
+            string pool1 = "aqfc";
+            string pool2 = "123456789";//ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
             string password = "";
             Random rand = new Random();
-            int number = rand.Next(8, 12);
+            int number = rand.Next(9, 10);
+
+            int num = rand.Next(0, pool1.Length);
+            password += pool1[num];
             for (int i = 0; i < number; i++)
             {
-                int num = rand.Next(0, 35);
-                password += pool[num];
+                num = rand.Next(0, pool2.Length);
+                password += pool2[num];
             }
             return password;
         }
@@ -200,7 +215,7 @@ namespace JieMaClient
             lines2[lines1.Count()] = _form.projectInfo.name + ":账号 = " + user + " 密码 = " + password;
             System.IO.File.WriteAllLines(path, lines2);
         }
-        //测试按钮
+        //得到验证码
         public string getCheckCode(string doucmentName)
         {
             //取得验证码
@@ -218,7 +233,7 @@ namespace JieMaClient
             //pictureBox1.Image = image;
             //填写验证码
             string checkCode = "";
-            string str = NetRecognizePic.CJY_RecognizeFile(pathCheckCode.Trim(), "a771585207", Utility.MD5String("a395583102"), "895186", "1005", "0", "0", "");
+            string str = NetRecognizePic.CJY_RecognizeFile(pathCheckCode.Trim(), "a771585207", Utility.MD5String("a395583102"), "895186", _form.projectInfo.cjyID.ToString(), "0", "0", "");
             string strerr = Utility.GetTextByKey(str, "err_str");
             if (strerr == "OK")
             {
@@ -272,7 +287,7 @@ namespace JieMaClient
                 else
                 {
                     count++;
-                    string sms = "第" + count.ToString() + "次获取验证码";
+                    string sms = count.ToString() + "=" + retStrings;
                     _form.ControlDelegate("TextBox", _form.textBox1, sms);
                     Thread.Sleep(3000);
                 }
@@ -304,6 +319,20 @@ namespace JieMaClient
             SetCursorPos((int)x, (int)y);
             mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_LEFTDOWN, (uint)x, (uint)y, 0, 0);
             mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_LEFTUP, (uint)x, (uint)y, 0, 0);
+
+            return true;
+        }
+
+        //鼠标下滑
+        public bool mouse_drag(float wheelNum)
+        {
+            if (_ptr.ToInt32() == 0)
+            {
+                return false;
+            }
+
+            Thread.Sleep(50);
+            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, (int)wheelNum, 0);
 
             return true;
         }
